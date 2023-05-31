@@ -1,0 +1,40 @@
+# list of three lists with an initial value of '.'
+game = [(['.'] * 3) for i in range(3)]
+# odd number represent player 1. even - player two. by default player one starts!
+player_count = 1
+# counts the moves played, the max moves is 9
+moves_counter = 0
+# boolean that represents the status of the game. false means the game is played
+game_over = False
+
+while not game_over:
+    if player_count % 2 != 0:  # odd is player 1
+        current_player_symbol = "x"
+        print("it's player's 1 turn!")
+    else:  # even is player 2
+        current_player_symbol = "o"
+        print("it's player's 2 turn!")
+
+    row, col = input("Enter two numbers: <row-0-1-2>, <column-0-1-2> ").split(", ")
+    row, col = int(row), int(col)
+
+    if game[row][col] != '.':
+        print("slot already taken")
+        continue  # hops back to while
+
+    # place the symbol played in the specific slot
+    game[row][col] = current_player_symbol
+    # counts the moves
+    moves_counter += 1
+
+    # makes the board output
+    for r in game:
+        print("+---+---+---+")
+        print("| " + " | ".join(r) + " |")
+    print("+---+---+---+")
+
+    if moves_counter == 9:
+        print("Board is full. Game over.")
+        game_over = True
+
+    player_count += 1

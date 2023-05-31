@@ -1,0 +1,62 @@
+import random
+import sys
+
+# a script which generates a random four digits number, and the user needs to gues the number.
+# cow - guess digit exists and at the right place. bull - guess digit exists but not in the right place.
+
+# tracks the times of guesses
+count = int(0)
+# new list for the random number
+lst_bot = []
+
+print("Let's play Cows & Bulls. A bot has generated a 4 digit number. can you guess it? ")
+# create the random number and append it to the list
+for i in range(4):
+    r = random.randint(0, 9)
+    lst_bot.append(r)
+# print(lst_bot)
+
+# loop for users guess, until the user gets it right
+while True:
+    lst_user = []
+    bull = 0
+    cow = 0
+    count = count + 1
+    # taking the user's guess into a list
+    print("guess: <4 digits> (press enter after every number) >>")
+    for i in range(4):
+        while True:
+            try:
+                ele = int(input())
+                # adding the element
+                lst_user.append(ele)
+                break  # break out of the while loop if a valid integer is entered
+            except ValueError:
+                print("Please enter a valid integer.")
+    print(lst_user)
+
+    # check for bulls and cows
+    for i in range(4):
+        if lst_user[i] == lst_bot[i]:
+            cow += 1
+        elif lst_user[i] in lst_bot:
+            bull += 1
+
+    # if the lists are the same, so the guess is right and the game ends.
+    if lst_bot == lst_user:
+        print("you made it. the guess is exactly correct")
+        print(f"the number of attempts: {count}")
+        break
+    else:
+        # show the current status of cows and bulls.
+        print(f"{cow} cows, {bull} bulls ")
+
+#     for i in range(4):
+#         for x in range(4):
+#             # if same value
+#             if lst_bot[i] == lst_user[x]:
+#                 # if in the same place
+#                 if lst_bot.index(lst_bot[i]) == lst_user.index(lst_user[i]):
+#                     cow = cow + 1
+#                 else:
+#                     bull = bull + 1
